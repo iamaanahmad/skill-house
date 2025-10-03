@@ -1,0 +1,56 @@
+"use client";
+
+import { QrCode, ThumbsUp } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { type Skill } from "@/lib/types";
+import { QrCodeDialog } from "./qr-code-dialog";
+
+interface SkillCardProps {
+  skill: Skill;
+}
+
+export default function SkillCard({ skill }: SkillCardProps) {
+  const Icon = skill.icon;
+  return (
+    <Card className="flex flex-col">
+      <CardHeader>
+        <div className="flex items-start justify-between">
+            <div className="flex items-center gap-4">
+                <div className="bg-muted p-3 rounded-lg">
+                    <Icon className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                    <CardTitle className="text-base font-semibold">{skill.name}</CardTitle>
+                    <Badge variant="outline" className="mt-1">{skill.level}</Badge>
+                </div>
+            </div>
+        </div>
+      </CardHeader>
+      <CardContent className="flex-grow">
+        <CardDescription>{skill.description}</CardDescription>
+      </CardContent>
+      <CardFooter className="flex justify-between items-center">
+        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <ThumbsUp className="h-4 w-4" />
+          <span>{skill.endorsements}</span>
+        </div>
+        <QrCodeDialog skillId={skill.id} skillName={skill.name}>
+            <Button variant="outline" size="sm">
+                <QrCode className="mr-2 h-4 w-4" />
+                Verify
+            </Button>
+        </QrCodeDialog>
+      </CardFooter>
+    </Card>
+  );
+}
