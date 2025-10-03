@@ -1,6 +1,7 @@
 "use client";
 
-import { QrCode, ThumbsUp } from "lucide-react";
+import { QrCode, ThumbsUp, Code, Cloud, Database, PenTool, Wind, Puzzle } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,8 +20,14 @@ interface SkillCardProps {
   skill: Skill;
 }
 
+// A map of icon names to their components
+const icons: { [key: string]: React.ElementType } = {
+    Code, Cloud, Database, PenTool, Wind, Puzzle
+};
+
 export default function SkillCard({ skill }: SkillCardProps) {
-  const Icon = skill.icon;
+  const Icon = icons[skill.icon] || LucideIcons.HelpCircle;
+
   return (
     <Card className="flex flex-col">
       <CardHeader>
