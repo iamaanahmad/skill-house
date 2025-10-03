@@ -55,8 +55,8 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16 mt-12">
-              <div className="grid gap-2 text-center">
+            <div className="mx-auto grid max-w-5xl items-center justify-items-center gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16 mt-12 text-center">
+              <div className="grid gap-2">
                  <div className="flex justify-center items-center">
                     <ShieldCheck className="w-10 h-10 text-primary" />
                 </div>
@@ -65,7 +65,7 @@ export default function HomePage() {
                   Credentials verified by AI and secured on the blockchain, ensuring authenticity.
                 </p>
               </div>
-              <div className="grid gap-2 text-center">
+              <div className="grid gap-2">
                 <div className="flex justify-center items-center">
                     <Cpu className="w-10 h-10 text-primary" />
                 </div>
@@ -74,7 +74,7 @@ export default function HomePage() {
                   Share your skills anywhere, from your resume to social media, with a simple link or QR code.
                 </p>
               </div>
-              <div className="grid gap-2 text-center">
+              <div className="grid gap-2">
                 <div className="flex justify-center items-center">
                     <Bot className="w-10 h-10 text-primary" />
                 </div>
@@ -83,7 +83,7 @@ export default function HomePage() {
                   Our AI analyzes your work to validate skills, providing objective and reliable assessments.
                 </p>
               </div>
-              <div className="grid gap-2 text-center">
+              <div className="grid gap-2">
                 <div className="flex justify-center items-center">
                     <Gem className="w-10 h-10 text-primary" />
                 </div>
