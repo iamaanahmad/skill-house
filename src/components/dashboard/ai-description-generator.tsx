@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useEffect, useRef, useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { Copy, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -31,7 +31,7 @@ function SubmitButton() {
 
 export default function AiDescriptionGenerator() {
     const initialState: FormState = { message: "" };
-    const [state, formAction] = useFormState(handleGenerateDescription, initialState);
+    const [state, formAction] = useActionState(handleGenerateDescription, initialState);
     const { toast } = useToast();
     const formRef = useRef<HTMLFormElement>(null);
     const { pending } = useFormStatus();
