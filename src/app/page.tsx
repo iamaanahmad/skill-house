@@ -16,7 +16,7 @@ export default function HomePage() {
           <span className="sr-only">SkillHouse</span>
         </Link>
       </header>
-      <main className="flex-1">
+      <main className="flex-1 flex flex-col items-center">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-8 text-center">
@@ -56,7 +56,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start justify-items-center gap-8 py-12 sm:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16">
-              <div className="grid gap-2 justify-items-center">
+              <div className="grid gap-2 justify-items-center text-center">
                  <div className="flex justify-center items-center">
                     <ShieldCheck className="w-10 h-10 text-primary" />
                 </div>
@@ -65,7 +65,7 @@ export default function HomePage() {
                   Credentials verified by AI and secured on the blockchain, ensuring authenticity.
                 </p>
               </div>
-              <div className="grid gap-2 justify-items-center">
+              <div className="grid gap-2 justify-items-center text-center">
                 <div className="flex justify-center items-center">
                     <Cpu className="w-10 h-10 text-primary" />
                 </div>
@@ -74,7 +74,7 @@ export default function HomePage() {
                   Share your skills anywhere, from your resume to social media, with a simple link or QR code.
                 </p>
               </div>
-              <div className="grid gap-2 justify-items-center">
+              <div className="grid gap-2 justify-items-center text-center">
                 <div className="flex justify-center items-center">
                     <Bot className="w-10 h-10 text-primary" />
                 </div>
@@ -83,7 +83,7 @@ export default function HomePage() {
                   Our AI analyzes your work to validate skills, providing objective and reliable assessments.
                 </p>
               </div>
-              <div className="grid gap-2 justify-items-center">
+              <div className="grid gap-2 justify-items-center text-center">
                 <div className="flex justify-center items-center">
                     <Gem className="w-10 h-10 text-primary" />
                 </div>
