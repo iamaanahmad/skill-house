@@ -17,9 +17,9 @@ export default function HomePage() {
         </Link>
       </header>
       <main className="flex-1 flex flex-col items-center">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 text-center">
           <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-8 text-center">
+            <div className="flex flex-col items-center space-y-8">
               <div className="space-y-4">
                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
                   Mint, Showcase, and Share Your Verified Skills
@@ -45,9 +45,9 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted text-center">
           <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="flex flex-col items-center justify-center space-y-4">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Why Choose SkillHouse?</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -56,7 +56,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start justify-items-center gap-8 py-12 sm:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16">
-              <div className="grid gap-2 justify-items-center text-center">
+              <div className="grid gap-2 justify-items-center">
                  <div className="flex justify-center items-center">
                     <ShieldCheck className="w-10 h-10 text-primary" />
                 </div>
@@ -65,7 +65,7 @@ export default function HomePage() {
                   Credentials verified by AI and secured on the blockchain, ensuring authenticity.
                 </p>
               </div>
-              <div className="grid gap-2 justify-items-center text-center">
+              <div className="grid gap-2 justify-items-center">
                 <div className="flex justify-center items-center">
                     <Cpu className="w-10 h-10 text-primary" />
                 </div>
@@ -74,7 +74,7 @@ export default function HomePage() {
                   Share your skills anywhere, from your resume to social media, with a simple link or QR code.
                 </p>
               </div>
-              <div className="grid gap-2 justify-items-center text-center">
+              <div className="grid gap-2 justify-items-center">
                 <div className="flex justify-center items-center">
                     <Bot className="w-10 h-10 text-primary" />
                 </div>
@@ -83,7 +83,7 @@ export default function HomePage() {
                   Our AI analyzes your work to validate skills, providing objective and reliable assessments.
                 </p>
               </div>
-              <div className="grid gap-2 justify-items-center text-center">
+              <div className="grid gap-2 justify-items-center">
                 <div className="flex justify-center items-center">
                     <Gem className="w-10 h-10 text-primary" />
                 </div>
