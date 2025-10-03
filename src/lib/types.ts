@@ -4,7 +4,7 @@ export type Skill = {
   id: string;
   name: string;
   description: string;
-  icon: React.ElementType;
+  icon: string;
   criteria: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
   endorsements: number;
