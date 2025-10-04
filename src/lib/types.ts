@@ -10,9 +10,17 @@ export type Skill = {
   endorsements: number;
 };
 
-export type User = {
+export type SocialLink = {
   name: string;
+  url: string;
+};
+
+export type User = {
+  name:string;
+  username: string;
   avatarUrl: string;
   skills: number;
   streak: number;
+  bio: string;
+  socialLinks: SocialLink[];
 };

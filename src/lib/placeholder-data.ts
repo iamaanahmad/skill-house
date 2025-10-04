@@ -5,9 +5,16 @@ const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-1');
 
 export const user: User = {
   name: "Alex Doe",
+  username: "alex-doe",
   avatarUrl: userAvatar?.imageUrl || "https://picsum.photos/seed/123/100/100",
   skills: 6,
   streak: 12,
+  bio: "Full-stack developer with a passion for creating beautiful and functional web applications. Specialized in React, Next.js, and AI-powered features.",
+  socialLinks: [
+    { name: "linkedin", url: "#" },
+    { name: "github", url: "#" },
+    { name: "twitter", url: "#" },
+  ],
 };
 
 export const skills: Skill[] = [

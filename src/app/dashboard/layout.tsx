@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, PanelLeft, Settings, Users, BookOpen, PlusSquare } from "lucide-react";
+import { Home, PanelLeft, Settings, Users, BookOpen, PlusSquare, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -45,7 +45,7 @@ export default function DashboardLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="/dashboard/my-skills" isActive>
+              <SidebarMenuButton href="/dashboard/my-skills">
                 <BookOpen />
                 My Skills
               </SidebarMenuButton>
@@ -81,6 +81,9 @@ export default function DashboardLayout({
               <DropdownMenuContent side="right" align="start" className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                 <DropdownMenuItem asChild>
+                  <Link href={`/profile/${user.username}`}>Public Profile</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
