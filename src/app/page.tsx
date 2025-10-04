@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { GraduationCap, ShieldCheck, Cpu, Bot, Gem } from "lucide-react";
+import { GraduationCap, ShieldCheck, Cpu, Bot, Gem, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -10,11 +10,22 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
-      <header className="px-4 lg:px-6 h-14 flex items-center justify-center">
-        <Link href="#" className="flex items-center justify-center" prefetch={false}>
+      <header className="px-4 lg:px-6 h-14 flex items-center">
+        <Link href="/" className="flex items-center justify-center" prefetch={false}>
           <GraduationCap className="h-6 w-6 text-primary" />
           <span className="ml-2 font-bold text-lg">SkillHouse</span>
         </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+            <Button variant="ghost" asChild>
+                <Link href="/discover">
+                    <Search className="h-5 w-5 mr-2" />
+                    Discover
+                </Link>
+            </Button>
+            <Button asChild>
+                <Link href="/dashboard">Get Started</Link>
+            </Button>
+        </nav>
       </header>
       
       <main className="flex-1">
