@@ -78,4 +78,3 @@ function StatCard({ title, value, icon }: { title: string, value: string, icon: 
         </Card>
     )
 }
-
