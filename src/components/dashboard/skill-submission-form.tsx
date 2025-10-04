@@ -14,6 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import AiDescriptionGenerator from './ai-description-generator';
 import { useAddSkill } from '@/lib/app-data';
 import { useRouter } from 'next/navigation';
+import { Switch } from '../ui/switch';
 
 const formSchema = z.object({
   skillName: z.string().min(2, 'Skill name must be at least 2 characters.'),
@@ -22,6 +23,8 @@ const formSchema = z.object({
   level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
   description: z.string().min(10, 'Description must be at least 10 characters.'),
   icon: z.enum(["Code", "Cloud", "Database", "PenTool", "Wind", "Puzzle"]),
+  mintNft: z.boolean().default(false),
+  requestEndorsement: z.boolean().default(false),
 });
 
 type SkillFormValues = z.infer<typeof formSchema>;
@@ -38,7 +41,9 @@ export default function SkillSubmissionForm() {
       criteria: '',
       description: '',
       level: 'Beginner',
-      icon: 'Code'
+      icon: 'Code',
+      mintNft: false,
+      requestEndorsement: false,
     },
   });
   
@@ -123,9 +128,9 @@ export default function SkillSubmissionForm() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Verification Criteria & Description</CardTitle>
+            <CardTitle>Verification & Description</CardTitle>
             <CardDescription>
-              Define how this skill is measured. Then, either write a description or let our AI generate one for you.
+              Define how this skill is measured, then write a description or let our AI generate one.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -222,6 +227,49 @@ export default function SkillSubmissionForm() {
                 )}
             />
           </CardContent>
+        </Card>
+        
+        <Card>
+            <CardHeader>
+                <CardTitle>Issue Options</CardTitle>
+                <CardDescription>Configure how your credential will be issued and verified.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <FormField
+                    control={form.control}
+                    name="mintNft"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                            <div className="space-y-0.5">
+                                <FormLabel className="text-base">Mint as NFT</FormLabel>
+                                <FormDescription>
+                                Issue this credential as a unique, permanent token on the blockchain.
+                                </FormDescription>
+                            </div>
+                            <FormControl>
+                                <Switch checked={field.value} onCheckedChange={field.onChange} />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="requestEndorsement"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                            <div className="space-y-0.5">
+                                <FormLabel className="text-base">Request Peer Endorsement</FormLabel>
+                                <FormDescription>
+                                Require an endorsement from a peer or mentor before final verification.
+                                </FormDescription>
+                            </div>
+                            <FormControl>
+                                <Switch checked={field.value} onCheckedChange={field.onChange} />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+            </CardContent>
         </Card>
         
         <Button type="submit" className="w-full" size="lg">Submit Skill for Verification</Button>
