@@ -93,10 +93,10 @@ export default function HomePage() {
                <Link href="/about" className="text-xs hover:underline underline-offset-4" prefetch={false}>
                 About & FAQ
               </Link>
-              <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
+              <Link href="/terms" className="text-xs hover:underline underline-offset-4" prefetch={false}>
                 Terms
               </Link>
-              <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
+              <Link href="/privacy" className="text-xs hover:underline underline-offset-4" prefetch={false}>
                 Privacy
               </Link>
             </nav>

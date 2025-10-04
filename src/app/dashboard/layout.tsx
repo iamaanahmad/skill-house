@@ -57,7 +57,7 @@ export default function DashboardLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#">
+              <SidebarMenuButton href="/leaderboard">
                 <Users />
                 Leaderboard
               </SidebarMenuButton>
