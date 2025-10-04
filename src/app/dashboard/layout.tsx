@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, PanelLeft, Settings, Users, BookOpen, PlusSquare, GraduationCap } from "lucide-react";
+import { Home, PanelLeft, Settings, Users, BookOpen, PlusSquare, GraduationCap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -20,6 +20,7 @@ import DashboardHeader from "@/components/dashboard/header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 
 export default function DashboardLayout({
   children,
@@ -60,6 +61,15 @@ export default function DashboardLayout({
               <SidebarMenuButton href="#">
                 <Users />
                 Leaderboard
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+          <Separator className="my-4"/>
+           <SidebarMenu>
+             <SidebarMenuItem>
+              <SidebarMenuButton href="/admin" >
+                <Shield />
+                Admin Panel
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
