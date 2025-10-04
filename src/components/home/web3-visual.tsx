@@ -30,13 +30,28 @@ const Web3Visual = () => {
       
       container.appendChild(cube);
     }
+    
+    const handleMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const { offsetWidth, offsetHeight } = container;
+        const x = (clientX / offsetWidth - 0.5) * 45;
+        const y = (clientY / offsetHeight - 0.5) * -45;
+        container.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+        container.removeEventListener('mousemove', handleMouseMove);
+    }
+
   }, []);
 
   return (
-    <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-background/50">
+    <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-background/50 border shadow-inner">
        <div 
         ref={containerRef}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 transition-transform duration-300 ease-out"
       >
         {/* Cubes will be generated here by useEffect */}
       </div>
@@ -44,7 +59,7 @@ const Web3Visual = () => {
       <style jsx>{`
         @keyframes float {
           0% {
-            transform: translateY(20px) rotate(0deg);
+            transform: translateY(20px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
             opacity: 0;
             border-radius: 0;
           }
@@ -52,7 +67,7 @@ const Web3Visual = () => {
             opacity: 1;
           }
           100% {
-            transform: translateY(-180px) rotate(360deg);
+            transform: translateY(-180px) rotateX(360deg) rotateY(180deg) rotateZ(180deg);
             opacity: 0;
             border-radius: 50%;
           }
