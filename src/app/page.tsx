@@ -30,14 +30,17 @@ export default function HomePage() {
           <div className="container px-4 md:px-6 text-center">
             <div className="flex flex-col items-center space-y-6">
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                Mint, Showcase, and Share Your Verified Skills
+                Prove and Share Your Skills, Instantly and Securely
               </h1>
               <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
-                Turn your abilities into verifiable, shareable digital credentials powered by AI.
+                Turn your abilities into verifiable, shareable digital credentials powered by AI and Web3 technology.
               </p>
-              <div>
-                <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
-                  <Link href="/dashboard">Get Your First Badge</Link>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild size="lg">
+                  <Link href="/dashboard/add-skill">Issue a Skill</Link>
+                </Button>
+                 <Button asChild size="lg" variant="secondary">
+                  <Link href="/discover">Explore Credentials</Link>
                 </Button>
               </div>
             </div>
@@ -51,8 +54,38 @@ export default function HomePage() {
             </div>
         </section>
 
-        {/* Features Section */}
+        {/* How It Works Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">How It Works</h2>
+              <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
+                A simple, three-step process to turn your expertise into verifiable credentials.
+              </p>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-3">
+              <HowItWorksStep
+                step="1"
+                title="Submit Evidence"
+                description="Provide a link to your work—like a GitHub repo, design file, or project document—and define the criteria for your skill."
+              />
+               <HowItWorksStep
+                step="2"
+                title="AI Verification"
+                description="Our AI analyzes your submission against your criteria, providing an objective and unbiased verification of your skill."
+              />
+               <HowItWorksStep
+                step="3"
+                title="Mint & Share"
+                description="Receive a digital badge for your skill. You can share it with a link, or mint it as an NFT to truly own your achievement."
+              />
+            </div>
+          </div>
+        </section>
+
+
+        {/* Features Section */}
+        <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="text-center space-y-4 mb-12">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Why Choose SkillHouse?</h2>
@@ -63,23 +96,23 @@ export default function HomePage() {
             <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 lg:grid-cols-4">
               <FeatureCard
                 icon={<ShieldCheck className="w-10 h-10 text-primary" />}
-                title="Trust"
-                description="Credentials verified by AI and secured on the blockchain, ensuring authenticity."
+                title="Trust & Verifiability"
+                description="Credentials verified by AI and secured on the blockchain, ensuring authenticity that anyone can check."
               />
               <FeatureCard
                 icon={<Cpu className="w-10 h-10 text-primary" />}
-                title="Utility"
-                description="Share your skills anywhere, from your resume to social media, with a simple link."
+                title="Portability & Utility"
+                description="Share your skills anywhere, from your resume to social media, with a simple link or QR code."
               />
               <FeatureCard
                 icon={<Bot className="w-10 h-10 text-primary" />}
-                title="AI-Powered"
-                description="Our AI analyzes your work to validate skills, providing objective assessments."
+                title="Objective AI Analysis"
+                description="Our AI analyzes your work to validate skills, providing objective and consistent assessments."
               />
               <FeatureCard
                 icon={<Gem className="w-10 h-10 text-primary" />}
-                title="NFT Credentials"
-                description="Optionally mint your badges as NFTs to truly own your achievements."
+                title="Digital Ownership"
+                description="Optionally mint your skill badges as NFTs to truly own your achievements on the blockchain."
               />
             </div>
           </div>
@@ -109,8 +142,22 @@ export default function HomePage() {
 function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string; }) {
   return (
     <div className="flex flex-col items-center text-center gap-4">
-      <div className="bg-background rounded-full p-4 shadow-md">
+      <div className="bg-background rounded-full p-4 shadow-md border">
         {icon}
+      </div>
+      <h3 className="text-xl font-bold">{title}</h3>
+      <p className="text-muted-foreground">
+        {description}
+      </p>
+    </div>
+  )
+}
+
+function HowItWorksStep({ step, title, description }: { step: string; title: string; description: string; }) {
+  return (
+    <div className="flex flex-col items-center text-center gap-4">
+      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground font-bold text-2xl border-4 border-background shadow-lg">
+        {step}
       </div>
       <h3 className="text-xl font-bold">{title}</h3>
       <p className="text-muted-foreground">
