@@ -1,4 +1,7 @@
-import { skills } from "@/lib/placeholder-data";
+'use client';
+
+import { useState } from 'react';
+import { useSkills } from "@/lib/app-data";
 import SkillCard from "@/components/dashboard/skill-card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -7,6 +10,14 @@ import { GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function DiscoverPage() {
+  const allSkills = useSkills();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredSkills = allSkills.filter(skill => 
+    skill.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    skill.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="bg-background min-h-screen">
        <header className="px-4 lg:px-6 h-14 flex items-center border-b">
@@ -35,11 +46,13 @@ export default function DiscoverPage() {
                         type="search"
                         placeholder="Search by skill, name, or tag..."
                         className="w-full pl-10 py-6 text-base"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {skills.map((skill) => (
+                {filteredSkills.map((skill) => (
                 <SkillCard key={skill.id} skill={skill} />
                 ))}
             </div>

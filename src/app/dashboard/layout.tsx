@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import { Home, PanelLeft, Settings, Users, BookOpen, PlusSquare, GraduationCap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,16 +11,13 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarProvider,
-  SidebarTrigger,
   SidebarInset,
   SidebarFooter,
 } from "@/components/ui/sidebar";
 
-import { User } from "@/lib/types";
-import { user } from "@/lib/placeholder-data";
+import { useUser } from "@/lib/app-data";
 import DashboardHeader from "@/components/dashboard/header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 
@@ -27,7 +26,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const avatar = PlaceHolderImages.find(p => p.id === 'user-avatar-1');
+  const user = useUser();
   return (
     <SidebarProvider>
       <Sidebar>
@@ -79,7 +78,7 @@ export default function DashboardLayout({
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="w-full justify-start gap-2 px-2">
                     <Avatar className="h-8 w-8">
-                        <AvatarImage src={avatar?.imageUrl} alt={user.name} />
+                        <AvatarImage src={user.avatarUrl} alt={user.name} />
                         <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="text-left">

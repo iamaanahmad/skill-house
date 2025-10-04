@@ -1,7 +1,11 @@
-import { skills } from "@/lib/placeholder-data";
+'use client';
+
+import { useSkills } from "@/lib/app-data";
 import SkillCard from "@/components/dashboard/skill-card";
 
 export default function MySkillsPage() {
+  const skills = useSkills();
+
   return (
     <div className="space-y-8">
       <div>

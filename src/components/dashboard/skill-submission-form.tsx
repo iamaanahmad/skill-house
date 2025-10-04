@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm, FormProvider, useFormContext } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from '@/hooks/use-toast';
@@ -13,18 +12,24 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import AiDescriptionGenerator from './ai-description-generator';
+import { useAddSkill } from '@/lib/app-data';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   skillName: z.string().min(2, 'Skill name must be at least 2 characters.'),
   evidence: z.string().url('Please enter a valid URL for your evidence.'),
   criteria: z.string().min(10, 'Criteria must be at least 10 characters.'),
   level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
-  description: z.string().min(10, 'Description is required.'),
+  description: z.string().min(10, 'Description must be at least 10 characters.'),
+  icon: z.enum(["Code", "Cloud", "Database", "PenTool", "Wind", "Puzzle"]),
 });
 
 type SkillFormValues = z.infer<typeof formSchema>;
 
 export default function SkillSubmissionForm() {
+  const addSkill = useAddSkill();
+  const router = useRouter();
+
   const form = useForm<SkillFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,6 +37,8 @@ export default function SkillSubmissionForm() {
       evidence: '',
       criteria: '',
       description: '',
+      level: 'Beginner',
+      icon: 'Code'
     },
   });
   
@@ -40,13 +47,23 @@ export default function SkillSubmissionForm() {
   const level = form.watch('level');
 
   function onSubmit(data: SkillFormValues) {
-    // In a real app, you would submit this data to your backend for verification.
-    console.log(data);
+    const newSkill = {
+      id: `skill-${Date.now()}`,
+      name: data.skillName,
+      description: data.description,
+      icon: data.icon,
+      criteria: data.criteria,
+      level: data.level,
+      endorsements: 0,
+    };
+    addSkill(newSkill);
+
     toast({
       title: 'Skill Submitted!',
       description: `Your skill "${data.skillName}" has been submitted for verification.`,
     });
     form.reset();
+    router.push('/dashboard/my-skills');
   }
 
   const handleDescriptionGenerated = (description: string) => {
@@ -66,7 +83,7 @@ export default function SkillSubmissionForm() {
   };
 
   return (
-    <FormProvider {...form}>
+    <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <Card>
           <CardHeader>
@@ -112,28 +129,55 @@ export default function SkillSubmissionForm() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <FormField
-              control={form.control}
-              name="level"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Proficiency Level</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a level" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Beginner">Beginner</SelectItem>
-                      <SelectItem value="Intermediate">Intermediate</SelectItem>
-                      <SelectItem value="Advanced">Advanced</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormField
+                control={form.control}
+                name="level"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Proficiency Level</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a level" />
+                        </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        <SelectItem value="Beginner">Beginner</SelectItem>
+                        <SelectItem value="Intermediate">Intermediate</SelectItem>
+                        <SelectItem value="Advanced">Advanced</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="icon"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Icon</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select an icon" />
+                        </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        <SelectItem value="Code">Code</SelectItem>
+                        <SelectItem value="Wind">Wind</SelectItem>
+                        <SelectItem value="Puzzle">Puzzle</SelectItem>
+                        <SelectItem value="Database">Database</SelectItem>
+                        <SelectItem value="Cloud">Cloud</SelectItem>
+                        <SelectItem value="PenTool">PenTool</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+            </div>
             <FormField
               control={form.control}
               name="criteria"
@@ -182,6 +226,6 @@ export default function SkillSubmissionForm() {
         
         <Button type="submit" className="w-full" size="lg">Submit Skill for Verification</Button>
       </form>
-    </FormProvider>
+    </Form>
   );
 }

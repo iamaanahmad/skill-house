@@ -1,16 +1,17 @@
-import Image from "next/image";
+'use client';
+
 import Link from "next/link";
 import { Github, Linkedin, Twitter, Share2, GraduationCap } from "lucide-react";
-import { user, skills } from "@/lib/placeholder-data";
+import { useUser, useSkills } from "@/lib/app-data";
 import SkillCard from "@/components/dashboard/skill-card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 
 export default function ProfilePage({ params }: { params: { username: string } }) {
   // In a real app, you would fetch user data based on params.username
-  // For now, we'll use the placeholder data.
-  const profileUser = user;
+  // For now, we'll use the user from our client-side store.
+  const profileUser = useUser();
+  const skills = useSkills();
 
   return (
     <div className="bg-background min-h-screen">

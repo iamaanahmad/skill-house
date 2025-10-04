@@ -3,7 +3,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-1');
 
-export const user: User = {
+export const defaultUser: User = {
   name: "Alex Doe",
   username: "alex-doe",
   avatarUrl: userAvatar?.imageUrl || "https://picsum.photos/seed/123/100/100",
@@ -17,7 +17,7 @@ export const user: User = {
   ],
 };
 
-export const skills: Skill[] = [
+export const defaultSkills: Skill[] = [
   {
     id: "react-mastery",
     name: "React Mastery",
