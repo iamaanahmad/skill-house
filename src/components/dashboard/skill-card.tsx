@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import { QrCode, ThumbsUp, Code, Cloud, Database, PenTool, Wind, Puzzle } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 
@@ -27,6 +28,13 @@ const icons: { [key: string]: React.ElementType } = {
 
 export default function SkillCard({ skill }: SkillCardProps) {
   const Icon = icons[skill.icon] || LucideIcons.HelpCircle;
+  const [endorsementCount, setEndorsementCount] = useState(skill.endorsements);
+
+  const handleEndorse = () => {
+    // In a real app, this would be an API call.
+    // Here, we just increment the count locally for demonstration.
+    setEndorsementCount(prev => prev + 1);
+  };
 
   return (
     <Card className="flex flex-col">
@@ -47,10 +55,10 @@ export default function SkillCard({ skill }: SkillCardProps) {
         <CardDescription>{skill.description}</CardDescription>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+        <Button variant="ghost" size="sm" onClick={handleEndorse} className="flex items-center gap-2">
           <ThumbsUp className="h-4 w-4" />
-          <span>{skill.endorsements}</span>
-        </div>
+          <span>{endorsementCount} Endorse</span>
+        </Button>
         <QrCodeDialog skillId={skill.id} skillName={skill.name}>
             <Button variant="outline" size="sm">
                 <QrCode className="mr-2 h-4 w-4" />
