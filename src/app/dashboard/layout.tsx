@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, PanelLeft, Settings, Users, BookOpen } from "lucide-react";
+import { Home, PanelLeft, Settings, Users, BookOpen, PlusSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -31,20 +31,29 @@ export default function DashboardLayout({
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          {/* You can add a header content here */}
+          <Link href="/" className="flex items-center gap-2 p-2 font-bold text-lg">
+             <GraduationCap className="h-6 w-6 text-primary" />
+             <span>SkillHouse</span>
+          </Link>
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton href="/dashboard" isActive>
+              <SidebarMenuButton href="/dashboard" >
                 <Home />
                 Dashboard
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#">
+              <SidebarMenuButton href="/dashboard/my-skills" isActive>
                 <BookOpen />
                 My Skills
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="/dashboard/add-skill">
+                <PlusSquare />
+                Add Skill
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
