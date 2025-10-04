@@ -1,13 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import { GraduationCap, ShieldCheck, Cpu, Bot, Gem, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Web3Visual from "@/components/home/web3-visual";
 
 export default function HomePage() {
-  const demoVideo = PlaceHolderImages.find(p => p.id === 'demo-video-1');
-
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -48,17 +44,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Demo Video Section */}
+        {/* Web3 Visual Section */}
         <section className="w-full pb-12 md:pb-24 lg:pb-32">
-            <div className="container px-4 md:px-6 text-center">
-                 <Image
-                    src={demoVideo?.imageUrl || "https://picsum.photos/seed/300/1200/675"}
-                    width={1200}
-                    height={675}
-                    alt="SkillHouse Platform Demo"
-                    className="mx-auto rounded-xl object-cover shadow-2xl"
-                    data-ai-hint="abstract animation"
-                />
+            <div className="container px-4 md:px-6">
+                 <Web3Visual />
             </div>
         </section>
 
