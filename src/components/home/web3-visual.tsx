@@ -18,7 +18,7 @@ const Web3Visual = () => {
 
     for (let i = 0; i < cubeCount; i++) {
       const cube = document.createElement('div');
-      cube.className = 'absolute bg-primary/20 border border-primary/50 animate-float-rotate';
+      cube.className = 'absolute bg-primary/20 animate-float-rotate';
       
       const size = Math.random() * 50 + 15; // Increased max size
       const duration = Math.random() * 20 + 15; // Slower, more majestic movement
@@ -56,7 +56,7 @@ const Web3Visual = () => {
   }, []);
 
   return (
-    <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-background/50 border shadow-inner group">
+    <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-background/50 group">
        <div 
         ref={containerRef}
         className="absolute inset-0 z-0 transition-transform duration-500 ease-out"
