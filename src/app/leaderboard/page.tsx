@@ -1,8 +1,8 @@
 'use client';
 
 import Link from "next/link";
-import { GraduationCap, Trophy, Medal, Award } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Trophy, Medal, Award } from "lucide-react";
+import { PublicHeader } from "@/components/public-header";
 import {
   Card,
   CardContent,
@@ -120,22 +120,15 @@ const dummyLeaderboard = [
 export default function LeaderboardPage() {
   const { leaderboard, loading } = useLeaderboard();
   
-  // Use dummy data if leaderboard is empty
-  const displayLeaderboard = leaderboard.length > 0 ? leaderboard : dummyLeaderboard;
+  // Combine real and dummy data
+  const displayLeaderboard = leaderboard.length > 0 
+    ? [...leaderboard, ...dummyLeaderboard].slice(0, 10) 
+    : dummyLeaderboard;
+  const showingMockData = leaderboard.length === 0;
 
   return (
     <div className="bg-background min-h-screen">
-       <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-        <Link href="/" className="flex items-center justify-center font-bold text-lg">
-          <GraduationCap className="h-6 w-6 text-primary" />
-          <span className="ml-2">SkillHouse</span>
-        </Link>
-        <div className="ml-auto">
-             <Button asChild>
-                <Link href="/dashboard">Dashboard</Link>
-            </Button>
-        </div>
-      </header>
+      <PublicHeader />
       <main className="container mx-auto py-12 px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <Card>
@@ -200,7 +193,7 @@ export default function LeaderboardPage() {
                   })}
                 </div>
               )}
-              {leaderboard.length === 0 && !loading && (
+              {showingMockData && !loading && (
                 <p className="text-xs text-muted-foreground text-center mt-4 pt-4 border-t">
                   Showing sample data. Real leaderboard will appear as users earn credentials.
                 </p>

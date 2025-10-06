@@ -77,6 +77,7 @@ export function useAllCredentials() {
   const [credentials, setCredentials] = useState<Credential[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const [useMockData, setUseMockData] = useState(false);
 
   useEffect(() => {
     let unsubscribe: (() => void) | undefined;
@@ -85,11 +86,24 @@ export function useAllCredentials() {
       try {
         setLoading(true);
         const data = await databaseService.getAllVerifiedCredentials();
-        setCredentials(data);
+        
+        // Use mock data if no real credentials exist
+        if (data.length === 0) {
+          const { mockCredentials } = await import('@/lib/mock-credentials');
+          setCredentials(mockCredentials);
+          setUseMockData(true);
+        } else {
+          setCredentials(data);
+          setUseMockData(false);
+        }
         setError(null);
       } catch (err) {
         setError(err as Error);
         console.error('Error fetching all credentials:', err);
+        // Fallback to mock data on error
+        const { mockCredentials } = await import('@/lib/mock-credentials');
+        setCredentials(mockCredentials);
+        setUseMockData(true);
       } finally {
         setLoading(false);
       }
@@ -111,7 +125,7 @@ export function useAllCredentials() {
     };
   }, []);
 
-  return { credentials, loading, error };
+  return { credentials, loading, error, useMockData };
 }
 
 /**

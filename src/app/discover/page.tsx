@@ -5,12 +5,10 @@ import { useAllCredentials } from "@/hooks/use-appwrite";
 import SkillCard from "@/components/dashboard/skill-card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import Link from "next/link";
-import { GraduationCap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { PublicHeader } from "@/components/public-header";
 
 export default function DiscoverPage() {
-  const { credentials: allCredentials, loading } = useAllCredentials();
+  const { credentials: allCredentials, loading, useMockData } = useAllCredentials();
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredCredentials = allCredentials.filter(credential => 
@@ -21,17 +19,7 @@ export default function DiscoverPage() {
 
   return (
     <div className="bg-background min-h-screen">
-       <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-        <Link href="/" className="flex items-center justify-center font-bold text-lg">
-          <GraduationCap className="h-6 w-6 text-primary" />
-          <span className="ml-2">SkillHouse</span>
-        </Link>
-        <div className="ml-auto">
-             <Button asChild>
-                <Link href="/dashboard">Dashboard</Link>
-            </Button>
-        </div>
-      </header>
+      <PublicHeader />
       <main className="container mx-auto py-12 px-4 md:px-6">
         <div className="space-y-8">
             <div>
@@ -70,6 +58,11 @@ export default function DiscoverPage() {
                   ))
                 )}
               </div>
+            )}
+            {useMockData && !loading && (
+              <p className="text-xs text-muted-foreground text-center mt-8 pt-4 border-t">
+                Showing sample data. Real credentials will appear as users create them.
+              </p>
             )}
         </div>
       </main>

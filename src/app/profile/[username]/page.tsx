@@ -2,7 +2,8 @@
 
 import { use } from 'react';
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Share2, GraduationCap } from "lucide-react";
+import { Github, Linkedin, Twitter, Share2 } from "lucide-react";
+import { PublicHeader } from "@/components/public-header";
 import { useProfile, useCredentials } from "@/hooks/use-appwrite";
 import SkillCard from "@/components/dashboard/skill-card";
 import { Button } from "@/components/ui/button";
@@ -37,12 +38,7 @@ export default function ProfilePage({ params }: { params: Promise<{ username: st
   if (!profile) {
     return (
       <div className="bg-background min-h-screen">
-        <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-          <Link href="/" className="flex items-center justify-center font-bold text-lg">
-            <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="ml-2">SkillHouse</span>
-          </Link>
-        </header>
+        <PublicHeader />
         <main className="container mx-auto py-12 px-4 md:px-6">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4">Profile Not Found</h1>
@@ -67,17 +63,7 @@ export default function ProfilePage({ params }: { params: Promise<{ username: st
 
   return (
     <div className="bg-background min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-        <Link href="/" className="flex items-center justify-center font-bold text-lg">
-          <GraduationCap className="h-6 w-6 text-primary" />
-          <span className="ml-2">SkillHouse</span>
-        </Link>
-        <div className="ml-auto">
-             <Button asChild>
-                <Link href="/dashboard">Dashboard</Link>
-            </Button>
-        </div>
-      </header>
+      <PublicHeader />
 
       <main className="container mx-auto py-12 px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
