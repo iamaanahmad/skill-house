@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 import { GraduationCap } from 'lucide-react';
 
 /**
- * OAuth Callback Page
+ * OAuth Callback Page Component (inner)
  * Handles redirects from OAuth providers (GitHub, Google, etc.)
  */
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, loading, user, profile } = useAuth();
@@ -145,5 +145,31 @@ export default function AuthCallbackPage() {
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * OAuth Callback Page (with Suspense boundary)
+ */
+export default function AuthCallbackPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+        <div className="text-center space-y-6 max-w-md">
+          <div className="flex justify-center">
+            <GraduationCap className="h-16 w-16 text-primary" />
+          </div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold">Loading...</h2>
+            <p className="text-muted-foreground">
+              Please wait while we process your authentication.
+            </p>
+          </div>
+        </div>
+      </div>
+    }>
+      <AuthCallbackContent />
+    </Suspense>
   );
 }
