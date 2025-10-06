@@ -23,7 +23,7 @@ This project showcases comprehensive use of **all major Appwrite services**:
 
 ### Automated Setup with MCP
 
-Includes automated setup script using Appwrite MCP that creates:
+Includes automated setup script using [Appwrite MCP](https://appwrite.io/docs/tooling/mcp) that creates:
 - ✅ Complete database schema
 - ✅ All collections with attributes
 - ✅ Optimized indexes
@@ -31,6 +31,8 @@ Includes automated setup script using Appwrite MCP that creates:
 - ✅ Security permissions
 
 **One command**: `npm run setup:appwrite` - Everything is ready!
+
+**Learn More:** [Configure Appwrite MCP](https://appwrite.io/docs/tooling/mcp) for your development environment.
 
 ## Core Features
 
