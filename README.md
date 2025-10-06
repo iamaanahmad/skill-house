@@ -17,6 +17,7 @@ This project showcases comprehensive use of **all major Appwrite services**:
 - 🗄️ **Database**: 4 collections, 34 attributes, 12 optimized indexes
 - 📦 **Storage**: 2 buckets with encryption & antivirus
 - ⚡ **Realtime**: WebSocket subscriptions for live updates
+- 🌐 **Sites**: Deployed to skillhouse.appwrite.network with SSL/TLS
 - 🔒 **Security**: Document-level permissions, encrypted files
 - 🚀 **Performance**: Optimized queries, CDN delivery
 
@@ -283,6 +284,7 @@ This project was built for **Appwrite's Hacktoberfest Hackathon 2025** to demons
 ✅ **Database** - 4 collections with complex relationships  
 ✅ **Storage** - Encrypted file storage with antivirus  
 ✅ **Realtime** - Live updates via WebSocket  
+✅ **Sites** - Production hosting at skillhouse.appwrite.network  
 
 ### ⚡ Performance Highlights
 - **API Response:** <200ms average (95th percentile)

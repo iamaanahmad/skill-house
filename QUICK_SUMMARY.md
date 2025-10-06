@@ -190,6 +190,16 @@ Setup Speed: 15x faster than competitors
 ✅ Automatic reconnection
 ```
 
+### Sites Service
+```
+✅ Production hosting at skillhouse.appwrite.network
+✅ SSL/TLS encryption (HTTPS)
+✅ Global CDN delivery
+✅ Continuous deployment from GitHub
+✅ Automatic builds on push
+✅ Zero-downtime deployments
+```
+
 ---
 
 ## 💻 Tech Stack
@@ -661,7 +671,7 @@ Future Ready:       NFT/Web3 integration ready
 │                                                         │
 │  SkillHouse: The Ultimate Appwrite Integration Demo   │
 │                                                         │
-│  ✅ 4 Appwrite Services (Maximum Integration)          │
+│  ✅ 5 Appwrite Services (Maximum Integration)          │
 │  ✅ 6,500+ Lines of Production Code                    │
 │  ✅ 100% TypeScript Coverage                           │
 │  ✅ AI-Powered Features (Google Gemini)                │

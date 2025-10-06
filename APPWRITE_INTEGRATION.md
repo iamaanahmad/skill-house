@@ -115,6 +115,24 @@ const unsubscribe = realtimeService.subscribeToCredentials((response) => {
 unsubscribe();
 ```
 
+### 5. Sites (Appwrite Sites)
+**Deployment URL:** https://skillhouse.appwrite.network
+
+Features:
+- ✅ Production hosting on Appwrite Sites
+- ✅ SSL/TLS encryption (HTTPS)
+- ✅ Global CDN delivery
+- ✅ Custom domain support
+- ✅ Continuous deployment from GitHub
+- ✅ Automatic builds on push
+- ✅ Zero-downtime deployments
+
+**Deployment:**
+- Live site hosted on Appwrite's global infrastructure
+- Automatic SSL certificate management
+- Fast global content delivery
+- Seamless integration with GitHub repository
+
 ## 🏗️ Architecture
 
 ### React Context Pattern
@@ -333,6 +351,7 @@ Clean separation of concerns:
 - ✅ Database (4 collections)
 - ✅ Storage (2 buckets)
 - ✅ Realtime (multiple subscriptions)
+- ✅ Sites (production hosting at skillhouse.appwrite.network)
 - ✅ Security (document-level permissions)
 
 **Real-World Value: 10/10**

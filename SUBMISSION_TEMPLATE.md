@@ -42,6 +42,7 @@ This project showcases Appwrite's power to build scalable, secure, and feature-r
 - **Appwrite Database** - 4 collections, 34 attributes, 12 indexes
 - **Appwrite Storage** - 2 encrypted buckets with antivirus
 - **Appwrite Realtime** - WebSocket subscriptions for live updates
+- **Appwrite Sites** - Production hosting at skillhouse.appwrite.network
 - **Node Appwrite SDK** - Server-side operations
 
 ### AI & Additional Services
@@ -100,6 +101,13 @@ https://skillhouse.appwrite.network
 - Real-time credential verification status
 - WebSocket subscriptions for instant UI updates
 - Optimistic UI with rollback on errors
+
+### 🚀 Deployment & Hosting
+- **Appwrite Sites** - Deployed to skillhouse.appwrite.network
+- Automatic SSL/TLS certificates
+- Global CDN for fast content delivery
+- Continuous deployment from GitHub
+- Custom domain support
 
 ### 🤖 AI Integration
 - Google Gemini Pro generates professional skill descriptions
