@@ -71,8 +71,7 @@ https://github.com/iamaanahmad/skill-house
 https://skillhouse.appwrite.network
 
 ## Demo Video/Photos  
-*A 2-3 minute demo video showcasing the platform's features will be uploaded here*
-
+https://www.loom.com/share/5ac67dec0ccf49cf8747f0a01e5da7db?sid=f0aed538-b5c2-435f-858e-d3a75bea70e2
 ---
 
 ## Key Features Demonstrated
