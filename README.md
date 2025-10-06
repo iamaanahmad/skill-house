@@ -224,12 +224,27 @@ skill-house/
 
 ## Deployment
 
-### Deploy to Vercel (Recommended)
+### Deploy to Appwrite Sites (Recommended)
 
-1. Push to GitHub
-2. Import to Vercel
-3. Add environment variables from `.env.local`
-4. Deploy!
+**Live Demo:** https://skillhouse.appwrite.network
+
+Appwrite Sites provides seamless hosting with:
+- ✅ Automatic SSL/TLS certificates
+- ✅ Global CDN delivery
+- ✅ Continuous deployment from GitHub
+- ✅ Zero-downtime deployments
+- ✅ Built-in environment variable management
+
+**Steps:**
+1. Push your code to GitHub
+2. Connect repository in Appwrite Console → Sites
+3. Configure build settings:
+   - Build command: `npm run build`
+   - Output directory: `.next`
+4. Add environment variables from `.env.local`
+5. Deploy automatically on every push!
+
+**Alternative:** You can also deploy to Vercel or any Node.js hosting platform.
 
 See **[SETUP.md](./SETUP.md#production-deployment)** for detailed instructions.
 
