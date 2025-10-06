@@ -325,7 +325,8 @@ This project was built for **Appwrite's Hacktoberfest Hackathon 2025** to demons
 
 ### Technical Highlights
 ✅ Document-level permissions for security  
-✅ Automated setup with Appwrite MCP  
+✅ Automated setup with [Appwrite MCP](https://appwrite.io/docs/tooling/mcp)  
+✅ Deployed on Appwrite Sites with global CDN  
 ✅ Type-safe TypeScript throughout  
 ✅ Production-ready architecture  
 ✅ Comprehensive documentation  
