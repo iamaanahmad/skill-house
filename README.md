@@ -145,9 +145,9 @@ Includes automated setup script using [Appwrite MCP](https://appwrite.io/docs/to
 
 ### Detailed Setup Guide
 
-For comprehensive setup instructions, see **[SETUP.md](./SETUP.md)**
+For comprehensive setup instructions, see **[SETUP.md](./docs/SETUP.md)**
 
-For Appwrite integration details, see **[APPWRITE_INTEGRATION.md](./APPWRITE_INTEGRATION.md)**
+For Appwrite integration details, see **[APPWRITE_INTEGRATION.md](./docs/APPWRITE_INTEGRATION.md)**
 
 ## Project Structure
 
@@ -246,35 +246,40 @@ Appwrite Sites provides seamless hosting with:
 
 **Alternative:** You can also deploy to Vercel or any Node.js hosting platform.
 
-See **[SETUP.md](./SETUP.md#production-deployment)** for detailed instructions.
+See **[SETUP.md](./docs/SETUP.md#production-deployment)** for detailed instructions.
 
 ## Documentation
+
+> **📁 All documentation is organized in the [`/docs`](./docs) folder** for easy navigation.
 
 ### 📚 Complete Documentation Suite
 
 #### Quick Start
 - **[README.md](./README.md)** - You are here! Project overview and quick start
-- **[EXECUTIVE_SUMMARY.md](./EXECUTIVE_SUMMARY.md)** - 📄 One-page summary for judges
-- **[QUICK_SUMMARY.md](./QUICK_SUMMARY.md)** - 🚀 Quick reference with visual summaries
+- **[EXECUTIVE_SUMMARY.md](./docs/EXECUTIVE_SUMMARY.md)** - 📄 One-page summary for judges
+- **[QUICK_SUMMARY.md](./docs/QUICK_SUMMARY.md)** - 🚀 Quick reference with visual summaries
 
 #### Setup & Integration
-- **[SETUP.md](./SETUP.md)** - 🔧 Complete setup guide (2-minute quickstart)
-- **[APPWRITE_INTEGRATION.md](./APPWRITE_INTEGRATION.md)** - 🔌 Appwrite integration details
-- **[APPWRITE_MCP_SUMMARY.md](./APPWRITE_MCP_SUMMARY.md)** - 🤖 MCP automation summary
+- **[SETUP.md](./docs/SETUP.md)** - 🔧 Complete setup guide (2-minute quickstart)
+- **[APPWRITE_INTEGRATION.md](./docs/APPWRITE_INTEGRATION.md)** - 🔌 Appwrite integration details
+- **[APPWRITE_MCP_SUMMARY.md](./docs/APPWRITE_MCP_SUMMARY.md)** - 🤖 MCP automation summary
 
 #### Performance & Analysis
-- **[PERFORMANCE_METRICS.md](./PERFORMANCE_METRICS.md)** - ⚡ Performance benchmarks, accessibility audit & competitive analysis
-- **[HACKATHON_ACHIEVEMENTS.md](./HACKATHON_ACHIEVEMENTS.md)** - 🏆 Complete feature summary & achievements
+- **[PERFORMANCE_METRICS.md](./docs/PERFORMANCE_METRICS.md)** - ⚡ Performance benchmarks, accessibility audit & competitive analysis
+- **[HACKATHON_ACHIEVEMENTS.md](./docs/HACKATHON_ACHIEVEMENTS.md)** - 🏆 Complete feature summary & achievements
 
 #### Feature Documentation
-- **[QR_VERIFICATION_FLOW.md](./QR_VERIFICATION_FLOW.md)** - 📱 QR code verification system explained
-- **[PRODUCTION_DOMAIN_SETUP.md](./PRODUCTION_DOMAIN_SETUP.md)** - 🌐 Production deployment guide
-- **[RUNTIME_ERRORS_FIXED.md](./RUNTIME_ERRORS_FIXED.md)** - 🐛 Bug fixes and solutions log
+- **[QR_VERIFICATION_FLOW.md](./docs/QR_VERIFICATION_FLOW.md)** - 📱 QR code verification system explained
+- **[PRODUCTION_DOMAIN_SETUP.md](./docs/PRODUCTION_DOMAIN_SETUP.md)** - 🌐 Production deployment guide
+- **[ENDORSEMENT_FIX.md](./docs/ENDORSEMENT_FIX.md)** - 🐛 Bug fixes and solutions log
+- **[TESTING_GUIDE.md](./docs/TESTING_GUIDE.md)** - 🧪 Testing procedures and guidelines
 
-#### Architecture
-- **[docs/blueprint.md](./docs/blueprint.md)** - 🏗️ Project architecture and design
+#### Architecture & Status
+- **[blueprint.md](./docs/blueprint.md)** - 🏗️ Project architecture and design
+- **[PROJECT_STATUS.md](./docs/PROJECT_STATUS.md)** - 📊 Current project status
+- **[SUBMISSION_TEMPLATE.md](./docs/SUBMISSION_TEMPLATE.md)** - 📝 Hackathon submission details
 
-**Total Documentation:** 3,000+ lines across 11 comprehensive files
+**Total Documentation:** 3,000+ lines across 14 comprehensive files
 
 ## Why SkillHouse?
 
@@ -363,4 +368,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Built with ❤️ for Appwrite Hacktoberfest Hackathon 2025** 🎃
 
-🚀 **[View on GitHub](https://github.com/iamaanahmad/skill-house)** | 📖 **[Read the Docs](./SETUP.md)** | 🐛 **[Report Issues](https://github.com/iamaanahmad/skill-house/issues)**
+🚀 **[View on GitHub](https://github.com/iamaanahmad/skill-house)** | 📖 **[Read the Docs](./docs/SETUP.md)** | 🐛 **[Report Issues](https://github.com/iamaanahmad/skill-house/issues)**
