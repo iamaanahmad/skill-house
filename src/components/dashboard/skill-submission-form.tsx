@@ -19,14 +19,13 @@ import { Switch } from '../ui/switch';
 import { useState } from 'react';
 
 const formSchema = z.object({
-  skillName: z.string().min(2, 'Skill name must be at least 2 characters.'),
-  evidence: z.string().url('Please enter a valid URL for your evidence.'),
-  criteria: z.string().min(10, 'Criteria must be at least 10 characters.'),
-  level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
+  title: z.string().min(2, 'Skill title must be at least 2 characters.'),
+  category: z.string().min(2, 'Category must be at least 2 characters.'),
+  evidenceUrl: z.string().url('Please enter a valid URL for your evidence.').optional().or(z.literal('')),
+  evidenceType: z.enum(['github', 'portfolio', 'certificate', 'project', 'other']),
   description: z.string().min(10, 'Description must be at least 10 characters.'),
-  icon: z.enum(["Code", "Cloud", "Database", "PenTool", "Wind", "Puzzle"]),
-  mintNft: z.boolean().default(false),
-  requestEndorsement: z.boolean().default(false),
+  isPublic: z.boolean().default(true),
+  requestVerification: z.boolean().default(false),
 });
 
 type SkillFormValues = z.infer<typeof formSchema>;
@@ -39,20 +38,18 @@ export default function SkillSubmissionForm() {
   const form = useForm<SkillFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      skillName: '',
-      evidence: '',
-      criteria: '',
+      title: '',
+      category: 'Technical',
+      evidenceUrl: '',
+      evidenceType: 'github',
       description: '',
-      level: 'Beginner',
-      icon: 'Code',
-      mintNft: false,
-      requestEndorsement: false,
+      isPublic: true,
+      requestVerification: false,
     },
   });
   
-  const skillName = form.watch('skillName');
-  const criteria = form.watch('criteria');
-  const level = form.watch('level');
+  const title = form.watch('title');
+  const category = form.watch('category');
 
   async function onSubmit(data: SkillFormValues) {
     if (!user) {
@@ -70,20 +67,20 @@ export default function SkillSubmissionForm() {
       // Create the credential in Appwrite
       await databaseService.createCredential({
         userId: user.$id,
-        name: data.skillName,
+        title: data.title,
+        category: data.category,
         description: data.description,
-        icon: data.icon,
-        criteria: data.criteria,
-        evidence: data.evidence,
-        level: data.level,
-        status: data.requestEndorsement ? 'pending' : 'verified',
+        evidenceUrl: data.evidenceUrl || '',
+        evidenceType: data.evidenceType,
+        status: data.requestVerification ? 'pending' : 'verified',
         endorsementCount: 0,
-        isNft: data.mintNft,
+        isPublic: data.isPublic,
+        createdAt: new Date().toISOString(),
       });
 
       toast({
         title: 'Skill Submitted!',
-        description: `Your skill "${data.skillName}" has been submitted for verification.`,
+        description: `Your skill "${data.title}" has been submitted successfully.`,
       });
       
       form.reset();
@@ -127,10 +124,10 @@ export default function SkillSubmissionForm() {
           <CardContent className="space-y-4">
             <FormField
               control={form.control}
-              name="skillName"
+              name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Skill Name</FormLabel>
+                  <FormLabel>Skill Title</FormLabel>
                   <FormControl>
                     <Input placeholder="e.g., React Component Design" {...field} />
                   </FormControl>
@@ -140,14 +137,52 @@ export default function SkillSubmissionForm() {
             />
             <FormField
               control={form.control}
-              name="evidence"
+              name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Evidence</FormLabel>
+                  <FormLabel>Category</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., Web Development, Design, Data Science" {...field} />
+                  </FormControl>
+                  <FormDescription>What category does this skill belong to?</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="evidenceUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Evidence URL (Optional)</FormLabel>
                   <FormControl>
                     <Input placeholder="https://github.com/your-repo/project" {...field} />
                   </FormControl>
                   <FormDescription>Link to your project, repository, or portfolio.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="evidenceType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Evidence Type</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select evidence type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="github">GitHub Repository</SelectItem>
+                      <SelectItem value="portfolio">Portfolio Project</SelectItem>
+                      <SelectItem value="certificate">Certificate</SelectItem>
+                      <SelectItem value="project">Live Project</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -157,81 +192,16 @@ export default function SkillSubmissionForm() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Verification & Description</CardTitle>
+            <CardTitle>Description</CardTitle>
             <CardDescription>
-              Define how this skill is measured, then write a description or let our AI generate one.
+              Describe your skill or let our AI generate a description for you.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FormField
-                control={form.control}
-                name="level"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Proficiency Level</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select a level" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        <SelectItem value="Beginner">Beginner</SelectItem>
-                        <SelectItem value="Intermediate">Intermediate</SelectItem>
-                        <SelectItem value="Advanced">Advanced</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
-                <FormField
-                control={form.control}
-                name="icon"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Icon</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select an icon" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        <SelectItem value="Code">Code</SelectItem>
-                        <SelectItem value="Wind">Wind</SelectItem>
-                        <SelectItem value="Puzzle">Puzzle</SelectItem>
-                        <SelectItem value="Database">Database</SelectItem>
-                        <SelectItem value="Cloud">Cloud</SelectItem>
-                        <SelectItem value="PenTool">PenTool</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
-            </div>
-            <FormField
-              control={form.control}
-              name="criteria"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Criteria for Achievement</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="e.g., Deployed a serverless API with authentication and database integration." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <Separator className="my-6" />
-
             <div className="space-y-2">
-                <FormLabel>Badge Description</FormLabel>
+                <FormLabel>Skill Description</FormLabel>
                  <p className="text-sm text-muted-foreground">
-                    Write your own description or use the AI generator based on the fields above.
+                    Write your own description or use the AI generator.
                 </p>
             </div>
             <FormField
@@ -241,12 +211,12 @@ export default function SkillSubmissionForm() {
                     <FormItem>
                     <div className="flex flex-col sm:flex-row gap-4">
                         <FormControl>
-                            <Textarea placeholder="This badge certifies..." {...field} className="flex-grow" rows={4} />
+                            <Textarea placeholder="This skill demonstrates..." {...field} className="flex-grow" rows={4} />
                         </FormControl>
                         <AiDescriptionGenerator
-                            skillName={skillName}
-                            criteria={criteria}
-                            level={level}
+                            skillName={title}
+                            criteria={category}
+                            level="Intermediate"
                             onDescriptionGenerated={handleDescriptionGenerated}
                             onError={handleGenerationError}
                         />
@@ -260,19 +230,19 @@ export default function SkillSubmissionForm() {
         
         <Card>
             <CardHeader>
-                <CardTitle>Issue Options</CardTitle>
-                <CardDescription>Configure how your credential will be issued and verified.</CardDescription>
+                <CardTitle>Settings</CardTitle>
+                <CardDescription>Configure how your credential will be shared and verified.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
                 <FormField
                     control={form.control}
-                    name="mintNft"
+                    name="isPublic"
                     render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                             <div className="space-y-0.5">
-                                <FormLabel className="text-base">Mint as NFT</FormLabel>
+                                <FormLabel className="text-base">Make Public</FormLabel>
                                 <FormDescription>
-                                Issue this credential as a unique, permanent token on the blockchain.
+                                Allow others to view this credential in the discover section.
                                 </FormDescription>
                             </div>
                             <FormControl>
@@ -283,13 +253,13 @@ export default function SkillSubmissionForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="requestEndorsement"
+                    name="requestVerification"
                     render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                             <div className="space-y-0.5">
-                                <FormLabel className="text-base">Request Peer Endorsement</FormLabel>
+                                <FormLabel className="text-base">Request Verification</FormLabel>
                                 <FormDescription>
-                                Require an endorsement from a peer or mentor before final verification.
+                                Submit this skill for verification before marking as verified.
                                 </FormDescription>
                             </div>
                             <FormControl>

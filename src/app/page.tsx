@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GraduationCap, ShieldCheck, Cpu, Bot, Gem, Search } from "lucide-react";
+import { GraduationCap, ShieldCheck, Cpu, Bot, Gem, Search, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Web3Visual from "@/components/home/web3-visual";
 
@@ -19,6 +19,12 @@ export default function HomePage() {
                 </Link>
             </Button>
             <Button variant="ghost" asChild>
+                <Link href="/leaderboard">
+                    <Trophy className="h-5 w-5 mr-2" />
+                    Leaderboard
+                </Link>
+            </Button>
+            <Button variant="ghost" asChild>
                 <Link href="/auth">Login</Link>
             </Button>
             <Button asChild>
@@ -28,33 +34,71 @@ export default function HomePage() {
       </header>
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="w-full py-20 md:py-32 lg:py-40">
-          <div className="container px-4 md:px-6 text-center">
-            <div className="flex flex-col items-center space-y-6">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                Prove and Share Your Skills, Instantly and Securely
-              </h1>
-              <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
-                Turn your abilities into verifiable, shareable digital credentials powered by AI and Web3 technology.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg">
-                  <Link href="/dashboard/add-skill">Issue a Skill</Link>
-                </Button>
-                 <Button asChild size="lg" variant="secondary">
-                  <Link href="/discover">Explore Credentials</Link>
-                </Button>
+        {/* Hero Section with Integrated 3D Visual */}
+        <section className="w-full py-12 md:py-20 lg:py-24 relative overflow-hidden">
+          <div className="container px-4 md:px-6">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left: Hero Text */}
+              <div className="flex flex-col space-y-6 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium w-fit mx-auto lg:mx-0">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                  </span>
+                  Powered by AI & Blockchain
+                </div>
+                
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-gradient">
+                    Prove and Share Your Skills
+                  </span>
+                  <br />
+                  <span className="text-foreground">Instantly and Securely</span>
+                </h1>
+                
+                <p className="max-w-[600px] text-muted-foreground md:text-xl mx-auto lg:mx-0">
+                  Turn your abilities into verifiable, shareable digital credentials powered by AI and Web3 technology.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 mx-auto lg:mx-0">
+                  <Button asChild size="lg" className="group">
+                    <Link href="/dashboard/add-skill">
+                      Issue a Skill
+                      <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline">
+                    <Link href="/discover">Explore Credentials</Link>
+                  </Button>
+                </div>
+
+                {/* Stats */}
+                <div className="flex flex-wrap gap-8 justify-center lg:justify-start pt-8 border-t border-border">
+                  <div className="text-center lg:text-left">
+                    <div className="text-3xl font-bold text-primary">10K+</div>
+                    <div className="text-sm text-muted-foreground">Skills Verified</div>
+                  </div>
+                  <div className="text-center lg:text-left">
+                    <div className="text-3xl font-bold text-primary">500+</div>
+                    <div className="text-sm text-muted-foreground">Active Users</div>
+                  </div>
+                  <div className="text-center lg:text-left">
+                    <div className="text-3xl font-bold text-primary">&lt;100ms</div>
+                    <div className="text-sm text-muted-foreground">Response Time</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: 3D Web3 Visual */}
+              <div className="relative">
+                <Web3Visual />
               </div>
             </div>
           </div>
-        </section>
 
-        {/* Web3 Visual Section */}
-        <section className="w-full pb-12 md:pb-24 lg:pb-32">
-            <div className="container px-4 md:px-6">
-                 <Web3Visual />
-            </div>
+          {/* Background decorative elements */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
         </section>
 
         {/* How It Works Section */}

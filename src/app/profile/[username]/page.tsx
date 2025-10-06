@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import Link from "next/link";
 import { Github, Linkedin, Twitter, Share2, GraduationCap } from "lucide-react";
 import { useProfile, useCredentials } from "@/hooks/use-appwrite";
@@ -8,12 +9,13 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
 
-export default function ProfilePage({ params }: { params: { username: string } }) {
-  const { profile, loading: profileLoading } = useProfile(params.username);
+export default function ProfilePage({ params }: { params: Promise<{ username: string }> }) {
+  const { username } = use(params);
+  const { profile, loading: profileLoading } = useProfile(username);
   const { credentials, loading: credentialsLoading } = useCredentials(profile?.userId);
 
   const handleShareProfile = () => {
-    const url = `${window.location.origin}/profile/${params.username}`;
+    const url = `${window.location.origin}/profile/${username}`;
     navigator.clipboard.writeText(url);
     toast({
       title: "Link Copied!",
@@ -44,7 +46,7 @@ export default function ProfilePage({ params }: { params: { username: string } }
         <main className="container mx-auto py-12 px-4 md:px-6">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4">Profile Not Found</h1>
-            <p className="text-muted-foreground mb-6">The user @{params.username} does not exist.</p>
+            <p className="text-muted-foreground mb-6">The user @{username} does not exist.</p>
             <Button asChild>
               <Link href="/discover">Explore Other Profiles</Link>
             </Button>
@@ -83,10 +85,10 @@ export default function ProfilePage({ params }: { params: { username: string } }
           <div className="md:col-span-1 space-y-6">
             <div className="flex flex-col items-center text-center p-6 border rounded-lg">
               <Avatar className="w-24 h-24 mb-4">
-                <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-                <AvatarFallback>{profile.name.charAt(0)}</AvatarFallback>
+                <AvatarImage src={profile.avatarUrl} alt={profile.fullName} />
+                <AvatarFallback>{profile.fullName?.charAt(0) || 'U'}</AvatarFallback>
               </Avatar>
-              <h1 className="text-2xl font-bold">{profile.name}</h1>
+              <h1 className="text-2xl font-bold">{profile.fullName}</h1>
               <p className="text-muted-foreground">@{profile.username}</p>
               <p className="mt-4 text-sm">{profile.bio || 'No bio available.'}</p>
               <div className="flex justify-center gap-4 mt-4">

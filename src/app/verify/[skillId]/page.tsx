@@ -69,7 +69,7 @@ export default function VerifySkillPage() {
                     <Badge variant={credential.status === 'verified' ? 'default' : 'secondary'}>
                       {credential.status === 'verified' ? 'Verified Credential' : 'Pending Verification'}
                     </Badge>
-                    <CardTitle className="mt-2 text-2xl md:text-3xl">{credential.name}</CardTitle>
+                    <CardTitle className="mt-2 text-2xl md:text-3xl">{credential.title}</CardTitle>
                 </div>
               </div>
             </CardHeader>
@@ -81,37 +81,39 @@ export default function VerifySkillPage() {
                     <div className="flex items-start gap-3">
                         <ListChecks className="h-5 w-5 mt-0.5 text-primary" />
                         <div>
-                            <p className="font-medium">Criteria</p>
-                            <p className="text-muted-foreground">{credential.criteria}</p>
+                            <p className="font-medium">Category</p>
+                            <p className="text-muted-foreground">{credential.category}</p>
                         </div>
                     </div>
                     <div className="flex items-start gap-3">
                         <Clock className="h-5 w-5 mt-0.5 text-primary" />
                         <div>
-                            <p className="font-medium">Proficiency Level</p>
-                            <p className="text-muted-foreground">{credential.level}</p>
+                            <p className="font-medium">Status</p>
+                            <p className="text-muted-foreground">{credential.status || 'pending'}</p>
                         </div>
                     </div>
-                     <div className="flex items-start gap-3">
+                     {credential.evidenceUrl && (
+                       <div className="flex items-start gap-3">
                         <HardDrive className="h-5 w-5 mt-0.5 text-primary" />
                         <div>
                             <p className="font-medium">Evidence</p>
-                            <Link href={credential.evidence} target="_blank" className="text-primary hover:underline flex items-center gap-1">
+                            <Link href={credential.evidenceUrl} target="_blank" className="text-primary hover:underline flex items-center gap-1">
                                 View Submitted Project <LinkIcon className="h-4 w-4"/>
                             </Link>
                         </div>
-                    </div>
+                      </div>
+                     )}
                 </div>
                 <div className="space-y-4">
                     <h3 className="font-semibold text-lg">Issued To</h3>
                     {profile ? (
                       <div className="flex items-center gap-3 rounded-md border p-3">
                         <Avatar>
-                          <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-                          <AvatarFallback>{profile.name.charAt(0)}</AvatarFallback>
+                          <AvatarImage src={profile.avatarUrl} alt={profile.fullName} />
+                          <AvatarFallback>{profile.fullName?.charAt(0) || 'U'}</AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-semibold">{profile.name}</p>
+                          <p className="font-semibold">{profile.fullName}</p>
                           <Link href={`/profile/${profile.username}`} className="text-muted-foreground text-xs hover:underline">
                             @{profile.username}
                           </Link>

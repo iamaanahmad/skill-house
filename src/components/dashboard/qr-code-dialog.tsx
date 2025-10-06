@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { APP_URL } from "@/lib/appwrite/config";
 
 interface QrCodeDialogProps {
   skillId: string;
@@ -21,8 +22,8 @@ export function QrCodeDialog({
   skillName,
   children,
 }: QrCodeDialogProps) {
-  // NOTE: In a real app, this URL should point to your public verification page.
-  const verificationUrl = `https://skillhouse.app/verify/${skillId}`;
+  // Use the configured APP_URL for verification links
+  const verificationUrl = `${APP_URL}/verify/${skillId}`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
     verificationUrl
   )}&qzone=1&color=A050D3&bgcolor=F2E7F7`;

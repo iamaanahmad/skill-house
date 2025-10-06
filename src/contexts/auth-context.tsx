@@ -43,20 +43,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (currentUser) {
         setUser(currentUser);
         console.log('User found:', currentUser);
+        console.log('User email:', currentUser.email);
+        
         // Get or create profile
         let userProfile = await databaseService.getProfileByUserId(currentUser.$id);
         if (!userProfile) {
           console.log('Creating profile for user:', currentUser.$id);
+          
+          // Check if user has email
+          if (!currentUser.email) {
+            console.error('User does not have an email address');
+            throw new Error('Email address is required to create a profile');
+          }
+          
           // Create profile for new user (OAuth or otherwise)
-          const username = currentUser.email?.split('@')[0] || `user${currentUser.$id.slice(0, 8)}`;
-          userProfile = await databaseService.createProfile({
+          const username = currentUser.email.split('@')[0] || `user${currentUser.$id.slice(0, 8)}`;
+          const profileData = {
             userId: currentUser.$id,
-            name: currentUser.name || currentUser.email?.split('@')[0] || 'Anonymous',
+            fullName: currentUser.name || currentUser.email.split('@')[0] || 'Anonymous',
             username,
+            email: currentUser.email,
             bio: '',
             avatarUrl: '',
             socialLinks: [],
-          });
+          };
+          
+          console.log('Creating profile with data:', profileData);
+          userProfile = await databaseService.createProfile(profileData);
           console.log('Profile created:', userProfile);
         } else {
           console.log('Profile found:', userProfile);
@@ -96,15 +109,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const newUser = await authService.getCurrentUser();
       
       if (newUser) {
+        // Validate email exists
+        if (!newUser.email) {
+          console.error('New user does not have an email address');
+          throw new Error('Email address is required');
+        }
+        
         // Create profile
-        const newProfile = await databaseService.createProfile({
+        const profileData = {
           userId: newUser.$id,
-          name,
+          fullName: name,
           username,
+          email: newUser.email,
           bio: '',
           avatarUrl: '',
           socialLinks: [],
-        });
+        };
+        
+        console.log('Creating profile with data:', profileData);
+        const newProfile = await databaseService.createProfile(profileData);
         
         setUser(newUser);
         setProfile(newProfile);

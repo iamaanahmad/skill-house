@@ -1,6 +1,6 @@
 # 🎉 SkillHouse - Complete Appwrite Integration
 
-## ✅ PROJECT STATUS: READY FOR HACKATHON!
+## ✅ PROJECT STATUS: READY FOR APPWRITE HACKTOBERFEST HACKATHON 2025! 🎃
 
 ---
 
@@ -334,4 +334,6 @@ The project demonstrates:
 
 **Built with ❤️ using Appwrite**
 
-*For Appwrite Hackathon 2025*
+*For Appwrite Hacktoberfest Hackathon 2025* 🎃
+
+📦 **GitHub:** [github.com/iamaanahmad/skill-house](https://github.com/iamaanahmad/skill-house)

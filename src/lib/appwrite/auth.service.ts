@@ -23,6 +23,13 @@ export class AuthService {
    */
   async createAccount({ email, password, name }: CreateUserParams) {
     try {
+      // Check if there's an existing session and delete it
+      const existingUser = await this.getCurrentUser();
+      if (existingUser) {
+        console.log('Active session detected, logging out first');
+        await this.logout();
+      }
+      
       const newAccount = await account.create(ID.unique(), email, password, name);
       
       if (newAccount) {
@@ -42,6 +49,13 @@ export class AuthService {
    */
   async login({ email, password }: LoginParams) {
     try {
+      // Check if there's an existing session and delete it
+      const existingUser = await this.getCurrentUser();
+      if (existingUser) {
+        console.log('Active session detected, logging out first');
+        await this.logout();
+      }
+      
       const session = await account.createEmailPasswordSession(email, password);
       return session;
     } catch (error) {
@@ -102,10 +116,17 @@ export class AuthService {
   /**
    * Create OAuth2 session (for social login)
    */
-  createOAuth2Session(provider: string, successUrl?: string, failureUrl?: string) {
+  async createOAuth2Session(provider: string, successUrl?: string, failureUrl?: string) {
     try {
-      const success = successUrl || `${window.location.origin}/dashboard`;
-      const failure = failureUrl || `${window.location.origin}/`;
+      // Check if there's an existing session and delete it
+      const existingUser = await this.getCurrentUser();
+      if (existingUser) {
+        console.log('Active session detected, logging out first');
+        await this.logout();
+      }
+      
+      const success = successUrl || `${window.location.origin}/auth/callback`;
+      const failure = failureUrl || `${window.location.origin}/auth?error=oauth_failed`;
       
       account.createOAuth2Session(
         provider as any,

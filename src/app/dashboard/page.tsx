@@ -29,7 +29,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Welcome back, {profile.name}!</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Welcome back, {profile.fullName}!</h1>
         <p className="text-muted-foreground">
           Here's a summary of your achievements and progress.
         </p>

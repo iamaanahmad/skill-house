@@ -14,8 +14,9 @@ export default function DiscoverPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredCredentials = allCredentials.filter(credential => 
-    credential.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    credential.description.toLowerCase().includes(searchTerm.toLowerCase())
+    credential.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    credential.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    credential.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

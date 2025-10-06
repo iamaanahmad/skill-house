@@ -20,10 +20,15 @@ export default function AuthPage() {
   // Redirect if already authenticated
   useEffect(() => {
     if (!loading && isAuthenticated) {
+      console.log('User already authenticated, redirecting to dashboard');
+      toast({
+        title: 'Already Logged In',
+        description: 'You are already logged in. Redirecting to dashboard...',
+      });
       // Delay the redirect to avoid React render issues
       setTimeout(() => {
         router.push('/dashboard');
-      }, 0);
+      }, 500);
     }
   }, [isAuthenticated, loading, router]);
 

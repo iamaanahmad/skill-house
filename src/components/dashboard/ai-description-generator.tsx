@@ -1,27 +1,11 @@
 'use client'
 
-import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { handleGenerateDescription, type FormState } from "@/lib/actions";
 import { Skeleton } from "../ui/skeleton";
-
-function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-        <Button type="submit" disabled={pending} className="w-full sm:w-auto">
-            {pending ? (
-                "Generating..."
-            ) : (
-                <>
-                    <Sparkles className="mr-2 h-4 w-4" /> Generate
-                </>
-            )}
-        </Button>
-    )
-}
 
 interface AiDescriptionGeneratorProps {
     skillName: string;
@@ -32,36 +16,52 @@ interface AiDescriptionGeneratorProps {
 }
 
 export default function AiDescriptionGenerator({ skillName, criteria, level, onDescriptionGenerated, onError }: AiDescriptionGeneratorProps) {
-    const initialState: FormState = { message: "" };
+    const [pending, setPending] = useState(false);
 
-    const generateWithValues = async (prevState: FormState, formData: FormData): Promise<FormState> => {
-        const newFormData = new FormData();
-        newFormData.append('skillName', skillName);
-        newFormData.append('criteria', criteria);
-        newFormData.append('level', level);
-        
-        const result = await handleGenerateDescription(prevState, newFormData);
-        
-        if (result.message === "success" && result.description) {
-            onDescriptionGenerated(result.description);
-        } else if (result.message !== "") {
-            onError(result.message);
+    const handleGenerate = async () => {
+        setPending(true);
+        try {
+            const formData = new FormData();
+            formData.append('skillName', skillName);
+            formData.append('criteria', criteria);
+            formData.append('level', level);
+            
+            const initialState: FormState = { message: "" };
+            const result = await handleGenerateDescription(initialState, formData);
+            
+            if (result.message === "success" && result.description) {
+                onDescriptionGenerated(result.description);
+            } else if (result.message !== "") {
+                onError(result.message);
+            }
+        } catch (error) {
+            onError('Failed to generate description. Please try again.');
+        } finally {
+            setPending(false);
         }
-
-        return result;
-    }
-
-    const [state, formAction] = useActionState(generateWithValues, initialState);
-    const { pending } = useFormStatus();
+    };
 
     return (
-        <form action={formAction}>
+        <div className="space-y-2">
             {pending && (
                  <div className="space-y-2 pt-4">
                     <Skeleton className="h-20 w-full" />
                 </div>
             )}
-            <SubmitButton />
-        </form>
+            <Button 
+                type="button" 
+                onClick={handleGenerate} 
+                disabled={pending || !skillName || !criteria} 
+                className="w-full sm:w-auto"
+            >
+                {pending ? (
+                    "Generating..."
+                ) : (
+                    <>
+                        <Sparkles className="mr-2 h-4 w-4" /> Generate
+                    </>
+                )}
+            </Button>
+        </div>
     )
 }

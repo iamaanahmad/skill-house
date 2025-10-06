@@ -136,11 +136,11 @@ export default function DashboardLayout({
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="w-full justify-start gap-2 px-2">
                     <Avatar className="h-8 w-8">
-                        <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-                        <AvatarFallback>{profile.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage src={profile.avatarUrl} alt={profile.fullName} />
+                        <AvatarFallback>{profile.fullName?.charAt(0) || 'U'}</AvatarFallback>
                     </Avatar>
                     <div className="text-left">
-                        <p className="font-medium text-sm text-foreground">{profile.name}</p>
+                        <p className="font-medium text-sm text-foreground">{profile.fullName}</p>
                         <p className="text-xs text-muted-foreground">View profile</p>
                     </div>
                 </Button>

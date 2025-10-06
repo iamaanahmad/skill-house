@@ -13,8 +13,115 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLeaderboard } from "@/hooks/use-appwrite";
 
+// Dummy leaderboard data
+const dummyLeaderboard = [
+  {
+    profile: {
+      $id: '1',
+      username: 'sarah_dev',
+      fullName: 'Sarah Johnson',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah'
+    },
+    credentialCount: 24,
+    endorsementCount: 156
+  },
+  {
+    profile: {
+      $id: '2',
+      username: 'alex_code',
+      fullName: 'Alex Chen',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex'
+    },
+    credentialCount: 18,
+    endorsementCount: 132
+  },
+  {
+    profile: {
+      $id: '3',
+      username: 'maria_tech',
+      fullName: 'Maria Rodriguez',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Maria'
+    },
+    credentialCount: 15,
+    endorsementCount: 98
+  },
+  {
+    profile: {
+      $id: '4',
+      username: 'james_dev',
+      fullName: 'James Wilson',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=James'
+    },
+    credentialCount: 12,
+    endorsementCount: 87
+  },
+  {
+    profile: {
+      $id: '5',
+      username: 'emily_design',
+      fullName: 'Emily Davis',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emily'
+    },
+    credentialCount: 11,
+    endorsementCount: 76
+  },
+  {
+    profile: {
+      $id: '6',
+      username: 'david_full',
+      fullName: 'David Martinez',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David'
+    },
+    credentialCount: 9,
+    endorsementCount: 64
+  },
+  {
+    profile: {
+      $id: '7',
+      username: 'lisa_ux',
+      fullName: 'Lisa Anderson',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa'
+    },
+    credentialCount: 8,
+    endorsementCount: 52
+  },
+  {
+    profile: {
+      $id: '8',
+      username: 'michael_ai',
+      fullName: 'Michael Brown',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael'
+    },
+    credentialCount: 7,
+    endorsementCount: 45
+  },
+  {
+    profile: {
+      $id: '9',
+      username: 'sofia_web3',
+      fullName: 'Sofia Taylor',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sofia'
+    },
+    credentialCount: 6,
+    endorsementCount: 38
+  },
+  {
+    profile: {
+      $id: '10',
+      username: 'ryan_backend',
+      fullName: 'Ryan Thompson',
+      avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ryan'
+    },
+    credentialCount: 5,
+    endorsementCount: 31
+  }
+];
+
 export default function LeaderboardPage() {
   const { leaderboard, loading } = useLeaderboard();
+  
+  // Use dummy data if leaderboard is empty
+  const displayLeaderboard = leaderboard.length > 0 ? leaderboard : dummyLeaderboard;
 
   return (
     <div className="bg-background min-h-screen">
@@ -48,13 +155,9 @@ export default function LeaderboardPage() {
                     <div key={i} className="h-16 bg-muted animate-pulse rounded-lg" />
                   ))}
                 </div>
-              ) : leaderboard.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">
-                  No users on the leaderboard yet. Be the first to earn credentials!
-                </p>
               ) : (
                 <div className="space-y-2">
-                  {leaderboard.map((entry, index) => {
+                  {displayLeaderboard.map((entry, index) => {
                     const getRankIcon = () => {
                       if (index === 0) return <Trophy className="h-6 w-6 text-yellow-500" />;
                       if (index === 1) return <Medal className="h-6 w-6 text-gray-400" />;
@@ -76,11 +179,11 @@ export default function LeaderboardPage() {
                           )}
                         </div>
                         <Avatar className="h-12 w-12">
-                          <AvatarImage src={entry.profile.avatarUrl} alt={entry.profile.name} />
-                          <AvatarFallback>{entry.profile.name.charAt(0)}</AvatarFallback>
+                          <AvatarImage src={entry.profile.avatarUrl} alt={entry.profile.fullName} />
+                          <AvatarFallback>{entry.profile.fullName?.charAt(0) || 'U'}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                          <p className="font-semibold">{entry.profile.name}</p>
+                          <p className="font-semibold">{entry.profile.fullName}</p>
                           <p className="text-sm text-muted-foreground">@{entry.profile.username}</p>
                         </div>
                         <div className="text-right">
@@ -96,6 +199,11 @@ export default function LeaderboardPage() {
                     );
                   })}
                 </div>
+              )}
+              {leaderboard.length === 0 && !loading && (
+                <p className="text-xs text-muted-foreground text-center mt-4 pt-4 border-t">
+                  Showing sample data. Real leaderboard will appear as users earn credentials.
+                </p>
               )}
             </CardContent>
           </Card>

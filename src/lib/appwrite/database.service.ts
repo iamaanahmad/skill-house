@@ -10,8 +10,9 @@ import { appwriteConfig } from './config';
 export interface Profile {
   $id?: string;
   userId: string;
-  name: string;
+  fullName: string;
   username: string;
+  email: string;
   avatarUrl?: string;
   bio?: string;
   socialLinks?: string[];
@@ -22,15 +23,16 @@ export interface Profile {
 export interface Credential {
   $id?: string;
   userId: string;
-  name: string;
+  title: string;
+  category: string;
   description: string;
-  icon: string;
-  criteria: string;
-  evidence: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  status: 'pending' | 'verified' | 'rejected';
+  evidenceUrl?: string;
+  evidenceType?: string;
+  status?: 'pending' | 'verified' | 'rejected';
   endorsementCount?: number;
-  isNft?: boolean;
+  isPublic?: boolean;
+  createdAt: string;
+  verifiedAt?: string;
   $createdAt?: string;
   $updatedAt?: string;
 }
@@ -39,6 +41,7 @@ export interface Endorsement {
   $id?: string;
   credentialId: string;
   endorserId: string;
+  createdAt: string;
   $createdAt?: string;
 }
 
@@ -60,11 +63,26 @@ export class DatabaseService {
    */
   async createProfile(profile: Profile): Promise<Profile> {
     try {
+      // Ensure all required fields are present
+      const profileData = {
+        userId: profile.userId,
+        fullName: profile.fullName,
+        username: profile.username,
+        email: profile.email,
+        bio: profile.bio || '',
+        avatarUrl: profile.avatarUrl || '',
+        credentialCount: 0,
+        endorsementCount: 0,
+        createdAt: new Date().toISOString(),
+      };
+      
+      console.log('Creating profile document with data:', profileData);
+      
       const response = await databases.createDocument(
         appwriteConfig.databaseId,
         appwriteConfig.collections.profiles,
         ID.unique(),
-        profile
+        profileData
       );
       return response as unknown as Profile;
     } catch (error) {
@@ -142,11 +160,19 @@ export class DatabaseService {
    */
   async createCredential(credential: Credential): Promise<Credential> {
     try {
+      const credentialData = {
+        ...credential,
+        createdAt: credential.createdAt || new Date().toISOString(),
+        status: credential.status || 'pending',
+        isPublic: credential.isPublic !== undefined ? credential.isPublic : true,
+        endorsementCount: credential.endorsementCount || 0,
+      };
+      
       const response = await databases.createDocument(
         appwriteConfig.databaseId,
         appwriteConfig.collections.credentials,
         ID.unique(),
-        credential
+        credentialData
       );
       return response as unknown as Credential;
     } catch (error) {
@@ -214,7 +240,7 @@ export class DatabaseService {
   }
 
   /**
-   * Search credentials by name or description
+   * Search credentials by title or description
    */
   async searchCredentials(searchTerm: string): Promise<Credential[]> {
     try {
@@ -223,7 +249,7 @@ export class DatabaseService {
         appwriteConfig.collections.credentials,
         [
           Query.equal('status', 'verified'),
-          Query.search('name', searchTerm),
+          Query.search('title', searchTerm),
           Query.orderDesc('$createdAt')
         ]
       );
@@ -283,6 +309,7 @@ export class DatabaseService {
         {
           credentialId,
           endorserId,
+          createdAt: new Date().toISOString(),
         }
       );
 
