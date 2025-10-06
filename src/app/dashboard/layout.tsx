@@ -37,7 +37,7 @@ export default function DashboardLayout({
       setRedirectInitiated(true);
       // Delay the redirect to avoid React render issues
       setTimeout(() => {
-        router.push('/');
+        router.push('/auth');
       }, 0);
     }
   }, [loading, profile, router, redirectInitiated]);

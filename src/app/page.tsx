@@ -168,7 +168,7 @@ export default function HomePage() {
 
       <footer className="w-full py-6 px-4 md:px-6 border-t">
         <div className="container flex flex-col items-center justify-center text-center gap-2 sm:flex-row sm:justify-between">
-            <p className="text-xs text-muted-foreground">&copy; 2024 SkillHouse. All rights reserved.</p>
+            <p className="text-xs text-muted-foreground">&copy; 2025 SkillHouse. All rights reserved.</p>
             <nav className="flex gap-4 sm:gap-6">
                <Link href="/about" className="text-xs hover:underline underline-offset-4" prefetch={false}>
                 About & FAQ
